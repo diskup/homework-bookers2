@@ -9,7 +9,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    @books = Book.page(params[:page]).reverse_order
     @book = Book.new
   end
 
@@ -17,7 +17,7 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
   end
-  
+
   def edit
   end
 
