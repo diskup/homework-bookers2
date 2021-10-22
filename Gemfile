@@ -66,3 +66,7 @@ gem 'jquery-rails'
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'kaminari','~> 1.2.1'
+gem 'capybara', '>= 2.15'
+gem 'rspec-rails'
+gem "factory_bot_rails"
+gem 'faker'

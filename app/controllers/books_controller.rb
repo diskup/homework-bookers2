@@ -1,10 +1,12 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!,except: [:top]
   before_action :ensure_current_user, {only: [:edit, :update, :destroy]}
+  
   def ensure_current_user
     @book = Book.find(params[:id])
     redirect_to books_path if @book.user.id != current_user.id
   end
+  
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
@@ -24,7 +26,6 @@ class BooksController < ApplicationController
     @books = Book.page(params[:page])
   end
 
-
   def show
     @book = Book.find(params[:id])
     @user = @book.user
@@ -33,6 +34,7 @@ class BooksController < ApplicationController
   def edit
     @book = Book.find(params[:id])
   end
+  
   def update
     @book = Book.find(params[:id])
     if @book.update(book_params)
@@ -47,9 +49,11 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book.destroy
     redirect_to books_path
+    flash[:notice] = "You have deleted book successfully."
   end
 
   private
+  
     def book_params
       params.require(:book).permit(:title, :body)
     end

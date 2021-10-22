@@ -1,17 +1,21 @@
-<% if @user.errors.any? %>
-  <div id="error_explanation">
-    <h3><%= @user.errors.count %> errors prohibited this obj from being saved:</h3>
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-<div class='container'>
+<div class='container mt-3'>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
       <h2>User info</h2>
+      <% if @user.errors.any? %>
+        <div class="error_explanation text-danger">
+          <% if @user.errors.count == 1 %>
+            <h3>1 error prohibited this obj from being saved:</h3>
+          <% else %>
+            <h3><%= @user.errors.count %> errors prohibited this obj from being saved:</h3>
+          <% end %>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <%= form_with model:@user, local:true do |f| %>
         <div class="form-group">
           <label>Name</label>
@@ -29,6 +33,7 @@
           <%= f.submit"Update User", class:"btn btn-secondary" %>
         </div>
       <% end %>
+      <%= link_to "Delete User", destroy_user_path(@user.id), method: :delete, class:"btn btn-danger", "data-confirm" => "このアカウントを削除しますか？" %>
     </div>
   </div>
 </div>
